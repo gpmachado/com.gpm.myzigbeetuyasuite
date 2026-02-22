@@ -1,0 +1,3551 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.gpm.myzigbeetuyasuite",
+  "version": "1.1.1",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "My Tuya Zigbee Suite"
+  },
+  "description": {
+    "en": "Personal suite for Tuya Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more"
+  },
+  "category": [
+    "appliances"
+  ],
+  "tags": {
+    "en": [
+      "tuya",
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "moes",
+      "switch",
+      "sensor",
+      "dimmer",
+      "smart plug",
+      "power strip",
+      "power metering",
+      "dimmer /fan controller",
+      "temperature",
+      "humidity",
+      "gas detector",
+      "siren"
+    ]
+  },
+  "brandColor": "#2B5F9E",
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Gabriel Pedrosa Machado",
+    "email": "g.machado@me.com"
+  },
+  "brands": [
+    "zemismart",
+    "novadigital",
+    "tuya",
+    "moes"
+  ],
+  "dependencies": {
+    "homey-zigbeedriver": "^2.2.15",
+    "zigbee-clusters": "^2.6.0"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "gas_alarm_on",
+        "title": {
+          "en": "Gas detected"
+        },
+        "hint": {
+          "en": "Triggered when combustible gas is detected"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gas_detector"
+          }
+        ]
+      },
+      {
+        "id": "gas_alarm_off",
+        "title": {
+          "en": "Gas cleared"
+        },
+        "hint": {
+          "en": "Triggered when gas level returns to normal"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gas_detector"
+          }
+        ]
+      },
+      {
+        "id": "siren_activated",
+        "title": {
+          "en": "Siren activated"
+        },
+        "titleFormatted": {
+          "en": "Siren was activated"
+        },
+        "hint": {
+          "en": "Triggered when siren starts playing"
+        },
+        "tokens": [
+          {
+            "name": "duration",
+            "type": "number",
+            "title": {
+              "en": "Duration (seconds)"
+            },
+            "example": 120
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tuya_siren"
+          }
+        ]
+      },
+      {
+        "id": "siren_deactivated",
+        "title": {
+          "en": "Siren deactivated"
+        },
+        "titleFormatted": {
+          "en": "Siren was deactivated"
+        },
+        "hint": {
+          "en": "Triggered when siren stops playing"
+        },
+        "tokens": [
+          {
+            "name": "reason",
+            "type": "string",
+            "title": {
+              "en": "Stop reason"
+            },
+            "example": "auto"
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tuya_siren"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "is_gas_detected",
+        "title": {
+          "en": "Gas !{{is|is not}} detected"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=gas_detector"
+          }
+        ]
+      },
+      {
+        "id": "is_playing",
+        "title": {
+          "en": "Siren is !{{playing|not playing}}"
+        },
+        "titleFormatted": {
+          "en": "Siren is !{{playing|not playing}}"
+        },
+        "hint": {
+          "en": "Check if the siren is currently playing"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tuya_siren"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "siren_play",
+        "title": {
+          "en": "Play siren with melody"
+        },
+        "titleFormatted": {
+          "en": "Play [[melody]] for [[duration]] seconds"
+        },
+        "hint": {
+          "en": "Play a specific melody (uses volume from Settings)"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tuya_siren"
+          },
+          {
+            "name": "melody",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "label": {
+                  "en": "Doorbell Chime"
+                }
+              },
+              {
+                "id": "1",
+                "label": {
+                  "en": "Fur Elise"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Westminster Chimes"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "Fast double door bell"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "William Tell Overture"
+                }
+              },
+              {
+                "id": "5",
+                "label": {
+                  "en": "Turkish March"
+                }
+              },
+              {
+                "id": "6",
+                "label": {
+                  "en": "Safe/Security Alarm"
+                }
+              },
+              {
+                "id": "7",
+                "label": {
+                  "en": "Chemical Spill Alert"
+                }
+              },
+              {
+                "id": "8",
+                "label": {
+                  "en": "Piercing Alarm Clock"
+                }
+              },
+              {
+                "id": "9",
+                "label": {
+                  "en": "Smoke Alarm"
+                }
+              },
+              {
+                "id": "10",
+                "label": {
+                  "en": "Dog Barking"
+                }
+              },
+              {
+                "id": "11",
+                "label": {
+                  "en": "Police Siren"
+                }
+              },
+              {
+                "id": "12",
+                "label": {
+                  "en": "Doorbell Chime (reverb)"
+                }
+              },
+              {
+                "id": "13",
+                "label": {
+                  "en": "Mechanical Telephone"
+                }
+              },
+              {
+                "id": "14",
+                "label": {
+                  "en": "Fire/Ambulance"
+                }
+              },
+              {
+                "id": "15",
+                "label": {
+                  "en": "3/1 Elevator"
+                }
+              },
+              {
+                "id": "16",
+                "label": {
+                  "en": "Buzzing Alarm Clock"
+                }
+              },
+              {
+                "id": "17",
+                "label": {
+                  "en": "School Bell"
+                }
+              }
+            ]
+          },
+          {
+            "type": "number",
+            "name": "duration",
+            "min": 1,
+            "max": 1800,
+            "step": 1,
+            "placeholder": {
+              "en": "10"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "id": "gas_detector",
+      "name": {
+        "en": "Smart Gas Detector"
+      },
+      "class": "sensor",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "alarm_gas",
+        "alarm_problem"
+      ],
+      "capabilitiesOptions": {
+        "alarm_gas": {
+          "title": {
+            "en": "Gas alarm"
+          },
+          "uiComponent": "alarm",
+          "alarm": true,
+          "insightsTitleTrue": {
+            "en": "Gas detected!"
+          },
+          "insightsTitleFalse": {
+            "en": "Gas alarm cleared"
+          }
+        },
+        "alarm_problem": {
+          "title": {
+            "en": "Device fault"
+          },
+          "uiComponent": "alarm",
+          "alarm": true,
+          "insightsTitleTrue": {
+            "en": "Device fault detected"
+          },
+          "insightsTitleFalse": {
+            "en": "Device fault cleared"
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageConstant": 1.5
+        }
+      },
+      "images": {
+        "large": "/drivers/gas_detector/assets/images/large.png",
+        "small": "/drivers/gas_detector/assets/images/small.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TYZB01_0w3d5uw3"
+        ],
+        "productId": [
+          "TS0204"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              1280,
+              2821
+            ],
+            "bindings": [
+              3,
+              1280
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/gas_detector/assets/icon.svg",
+          "instruction": {
+            "en": "Insert a pin or paperclip into the reset pinhole and hold for 5 seconds until the LED flashes rapidly."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Alerts"
+          },
+          "children": [
+            {
+              "id": "alarm_problem_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable device fault alert"
+              },
+              "hint": {
+                "en": "Show alert when the sensor reports a hardware fault."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lcdtemphumidsensor",
+      "name": {
+        "en": "LCD Temp/Hum Sensor"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature": {
+          "decimals": 1,
+          "title": {
+            "en": "Temperature"
+          }
+        },
+        "measure_humidity": {
+          "decimals": 1,
+          "title": {
+            "en": "Humidity"
+          }
+        },
+        "measure_battery": {
+          "title": {
+            "en": "Battery"
+          }
+        },
+        "alarm_battery": {
+          "title": {
+            "en": "Low battery"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "CR2032"
+        ]
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "small": "/drivers/lcdtemphumidsensor/assets/images/small.png",
+        "large": "/drivers/lcdtemphumidsensor/assets/images/large.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_ywagc4rj"
+        ],
+        "productId": [
+          "TS0201"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              1,
+              3,
+              1026,
+              1029
+            ],
+            "bindings": []
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/lcdtemphumidsensor/assets/icon.svg",
+          "instruction": {
+            "en": "Hold reset 5s until LCD blinks"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Alerts"
+          },
+          "children": [
+            {
+              "id": "alarm_battery_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable low battery alert"
+              },
+              "hint": {
+                "en": "Show alert when battery drops below 20%."
+              },
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Health monitoring"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable availability monitoring"
+              },
+              "hint": {
+                "en": "Mark device unavailable if no data for 24 hours."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "moes_dimmer_3gang",
+      "name": {
+        "en": "Moes Dimmer 3 Gang"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff",
+        "dim"
+      ],
+      "capabilitiesOptions": {
+        "dim": {
+          "opts": {
+            "duration": true
+          },
+          "title": {
+            "en": "Fan Speed"
+          },
+          "units": {
+            "en": "%"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/moes_dimmer_3gang/assets/images/large.png",
+        "small": "/drivers/moes_dimmer_3gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 150,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Speed Control"
+          },
+          "children": [
+            {
+              "id": "minimumBrightness",
+              "type": "number",
+              "label": {
+                "en": "Min Speed"
+              },
+              "hint": {
+                "en": "Minimum fan speed percentage for this gang"
+              },
+              "value": 10,
+              "min": 1,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            },
+            {
+              "id": "maximumBrightness",
+              "type": "number",
+              "label": {
+                "en": "Max Speed"
+              },
+              "hint": {
+                "en": "Maximum fan speed percentage for this gang"
+              },
+              "value": 100,
+              "min": 2,
+              "max": 100,
+              "step": 1,
+              "units": "%"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Performance & Protection"
+          },
+          "children": [
+            {
+              "id": "enableDebouncing",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable Debouncing"
+              },
+              "hint": {
+                "en": "Reduces motor stress and network traffic during rapid speed changes"
+              },
+              "value": true
+            },
+            {
+              "id": "debounceDelay",
+              "type": "number",
+              "label": {
+                "en": "Debounce Delay"
+              },
+              "hint": {
+                "en": "Wait time before applying speed changes (ms)"
+              },
+              "value": 800,
+              "min": 0,
+              "max": 3000,
+              "step": 100,
+              "units": "ms"
+            },
+            {
+              "id": "enableMotorProtection",
+              "type": "checkbox",
+              "label": {
+                "en": "Motor Protection"
+              },
+              "hint": {
+                "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers"
+              },
+              "value": true
+            },
+            {
+              "id": "motorStartupDelay",
+              "type": "number",
+              "label": {
+                "en": "Motor Startup Delay"
+              },
+              "hint": {
+                "en": "Delay between setting speed and powering on motor (ms)"
+              },
+              "value": 1500,
+              "min": 0,
+              "max": 3000,
+              "step": 100,
+              "units": "ms"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Global Settings"
+          },
+          "children": [
+            {
+              "id": "powerOnState",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-On Behavior (All Gangs)"
+              },
+              "hint": {
+                "en": "Controls all 3 gangs after power outage"
+              },
+              "value": "memory",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "memory",
+                  "label": {
+                    "en": "Remember State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "backlightMode",
+              "type": "dropdown",
+              "label": {
+                "en": "LED Mode (All Gangs)"
+              },
+              "hint": {
+                "en": "Status LED behavior for all 3 gangs"
+              },
+              "value": "normal",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "normal",
+                  "label": {
+                    "en": "On when running"
+                  }
+                },
+                {
+                  "id": "inverted",
+                  "label": {
+                    "en": "On when stopped"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE204_1v1dxkck"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "devices": {
+          "secondGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff",
+              "dim"
+            ],
+            "capabilitiesOptions": {
+              "dim": {
+                "title": {
+                  "en": "Fan Speed"
+                },
+                "units": {
+                  "en": "%"
+                }
+              }
+            },
+            "name": {
+              "en": "Moes Dimmer 3 Gang - Gang 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 150,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "type": "group",
+                "label": {
+                  "en": "Speed Control"
+                },
+                "children": [
+                  {
+                    "id": "minimumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Min Speed"
+                    },
+                    "hint": {
+                      "en": "Minimum fan speed percentage for this gang"
+                    },
+                    "value": 10,
+                    "min": 1,
+                    "max": 100,
+                    "step": 1,
+                    "units": "%"
+                  },
+                  {
+                    "id": "maximumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Max Speed"
+                    },
+                    "hint": {
+                      "en": "Maximum fan speed percentage for this gang"
+                    },
+                    "value": 100,
+                    "min": 2,
+                    "max": 100,
+                    "step": 1,
+                    "units": "%"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Performance & Protection"
+                },
+                "children": [
+                  {
+                    "id": "enableDebouncing",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Enable Debouncing"
+                    },
+                    "hint": {
+                      "en": "Reduces motor stress and network traffic during rapid speed changes"
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "debounceDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Debounce Delay"
+                    },
+                    "hint": {
+                      "en": "Wait time before applying speed changes (ms)"
+                    },
+                    "value": 800,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  },
+                  {
+                    "id": "enableMotorProtection",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Motor Protection"
+                    },
+                    "hint": {
+                      "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers"
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "motorStartupDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Motor Startup Delay"
+                    },
+                    "hint": {
+                      "en": "Delay between setting speed and powering on motor (ms)"
+                    },
+                    "value": 1500,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Global Settings"
+                },
+                "children": [
+                  {
+                    "id": "_globalSettingsInfo",
+                    "type": "label",
+                    "label": {
+                      "en": "Power-On & LED Settings"
+                    },
+                    "hint": {
+                      "en": "Global settings (Power-On behavior and LED mode) are configured in Gang 1 (Main) and apply to all 3 gangs."
+                    },
+                    "value": ""
+                  }
+                ]
+              }
+            ]
+          },
+          "thirdGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff",
+              "dim"
+            ],
+            "capabilitiesOptions": {
+              "dim": {
+                "title": {
+                  "en": "Fan Speed"
+                },
+                "units": {
+                  "en": "%"
+                }
+              }
+            },
+            "name": {
+              "en": "Moes Dimmer 3 Gang - Gang 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 150,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "type": "group",
+                "label": {
+                  "en": "Speed Control"
+                },
+                "children": [
+                  {
+                    "id": "minimumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Min Speed"
+                    },
+                    "hint": {
+                      "en": "Minimum fan speed percentage for this gang"
+                    },
+                    "value": 10,
+                    "min": 1,
+                    "max": 100,
+                    "step": 1,
+                    "units": "%"
+                  },
+                  {
+                    "id": "maximumBrightness",
+                    "type": "number",
+                    "label": {
+                      "en": "Max Speed"
+                    },
+                    "hint": {
+                      "en": "Maximum fan speed percentage for this gang"
+                    },
+                    "value": 100,
+                    "min": 2,
+                    "max": 100,
+                    "step": 1,
+                    "units": "%"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Performance & Protection"
+                },
+                "children": [
+                  {
+                    "id": "enableDebouncing",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Enable Debouncing"
+                    },
+                    "hint": {
+                      "en": "Reduces motor stress and network traffic during rapid speed changes"
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "debounceDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Debounce Delay"
+                    },
+                    "hint": {
+                      "en": "Wait time before applying speed changes (ms)"
+                    },
+                    "value": 800,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  },
+                  {
+                    "id": "enableMotorProtection",
+                    "type": "checkbox",
+                    "label": {
+                      "en": "Motor Protection"
+                    },
+                    "hint": {
+                      "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers"
+                    },
+                    "value": true
+                  },
+                  {
+                    "id": "motorStartupDelay",
+                    "type": "number",
+                    "label": {
+                      "en": "Motor Startup Delay"
+                    },
+                    "hint": {
+                      "en": "Delay between setting speed and powering on motor (ms)"
+                    },
+                    "value": 1500,
+                    "min": 0,
+                    "max": 3000,
+                    "step": 100,
+                    "units": "ms"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Global Settings"
+                },
+                "children": [
+                  {
+                    "id": "_globalSettingsInfo",
+                    "type": "label",
+                    "label": {
+                      "en": "Power-On & LED Settings"
+                    },
+                    "hint": {
+                      "en": "Global settings (Power-On behavior and LED mode) are configured in Gang 1 (Main) and apply to all 3 gangs."
+                    },
+                    "value": ""
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/moes_dimmer_3gang/assets/icon.svg",
+          "instruction": {
+            "en": "Three fan controllers will be created, one for each channel. Gang 1 (Main) contains global settings that affect all gangs. Press reset switch 10 times rapidly until continuous beep to enter pairing mode."
+          }
+        }
+      }
+    },
+    {
+      "id": "novadigital_switch_1_gang",
+      "name": {
+        "en": "NovaDigital Switch 1 Gang"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/novadigital_switch_1_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_1_gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings"
+          },
+          "children": [
+            {
+              "id": "backlight_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "LED Backlight"
+              },
+              "hint": {
+                "en": "Status LED on physical button"
+              },
+              "value": true
+            },
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode"
+              },
+              "hint": {
+                "en": "Physical button behavior (global)"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Toggle (Standard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "State (Sync)"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Momentary (Pulse)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default behavior"
+              },
+              "hint": {
+                "en": "Applies and propagates to individual setting when changed"
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Individual"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Override"
+              },
+              "hint": {
+                "en": "Individual override (cluster 0xE001) — overrides global"
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Individual)"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Reliability"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Health Monitoring"
+              },
+              "hint": {
+                "en": "Mark offline when unreachable for 10 minutes"
+              },
+              "value": true
+            },
+            {
+              "id": "retry_stage",
+              "type": "dropdown",
+              "label": {
+                "en": "Retry Policy"
+              },
+              "hint": {
+                "en": "More retries = slower but more reliable"
+              },
+              "value": "balanced",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Off (no retries)"
+                  }
+                },
+                {
+                  "id": "balanced",
+                  "label": {
+                    "en": "Balanced (2x350ms)"
+                  }
+                },
+                {
+                  "id": "max",
+                  "label": {
+                    "en": "Max (5x600ms)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "retry_stage_current",
+              "type": "label",
+              "label": {
+                "en": "Current Policy"
+              },
+              "hint": {
+                "en": "Active retry configuration"
+              },
+              "value": "Balanced (2x350ms)"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_ovyaisip",
+          "_TZ3000_pk8tgtdb"
+        ],
+        "productId": [
+          "TS0001"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_1_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks."
+          }
+        }
+      }
+    },
+    {
+      "id": "novadigital_switch_2_gang",
+      "name": {
+        "en": "NovaDigital Switch 2 Gang"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/novadigital_switch_2_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_2_gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings"
+          },
+          "children": [
+            {
+              "id": "backlight_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "LED Backlight"
+              },
+              "hint": {
+                "en": "Status LED on physical buttons"
+              },
+              "value": true
+            },
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode"
+              },
+              "hint": {
+                "en": "Physical button behavior (global, all gangs)"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Toggle (Standard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "State (Sync)"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Momentary (Pulse)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default (all gangs)"
+              },
+              "hint": {
+                "en": "Applies to all gangs when changed. Individual gang settings below can override."
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Gang 1"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Gang 1 Override"
+              },
+              "hint": {
+                "en": "Overrides global for this gang only"
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 1)"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Gang 2 (info)"
+          },
+          "children": [
+            {
+              "id": "power_on_current_gang2",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 2)"
+              },
+              "hint": {
+                "en": "Change from Gang 2 tile settings"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Reliability"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Health Monitoring"
+              },
+              "hint": {
+                "en": "Mark offline when unreachable for 10 minutes"
+              },
+              "value": true
+            },
+            {
+              "id": "retry_stage",
+              "type": "dropdown",
+              "label": {
+                "en": "Retry Policy"
+              },
+              "hint": {
+                "en": "More retries = slower but more reliable"
+              },
+              "value": "balanced",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Off (no retries)"
+                  }
+                },
+                {
+                  "id": "balanced",
+                  "label": {
+                    "en": "Balanced (2x350ms)"
+                  }
+                },
+                {
+                  "id": "max",
+                  "label": {
+                    "en": "Max (5x600ms)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "retry_stage_current",
+              "type": "label",
+              "label": {
+                "en": "Current Policy"
+              },
+              "hint": {
+                "en": "Active retry configuration"
+              },
+              "value": "Balanced (2x350ms)"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_ywubfuvt",
+          "_TZ3000_kgxej1dv"
+        ],
+        "productId": [
+          "TS0002"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_2_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks. Two tiles will be created."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 2 Gang - Switch 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Gang 2"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang2",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Gang 2 Override"
+                    },
+                    "hint": {
+                      "en": "Overrides global for this gang only"
+                    },
+                    "value": "2",
+                    "values": [
+                      {
+                        "id": "0",
+                        "label": {
+                          "en": "Always Off"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "label": {
+                          "en": "Always On"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "label": {
+                          "en": "Last State"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang2",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Gang 2)"
+                    },
+                    "hint": {
+                      "en": "Read from device"
+                    },
+                    "value": "—"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Switch Mode"
+                },
+                "children": [
+                  {
+                    "id": "switch_mode_readonly",
+                    "type": "label",
+                    "label": {
+                      "en": "Mode"
+                    },
+                    "hint": {
+                      "en": "Global setting — change from Gang 1 (main tile)"
+                    },
+                    "value": "—"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "novadigital_switch_3_gang",
+      "name": {
+        "en": "NovaDigital Switch 3 Gang"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/novadigital_switch_3_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_3_gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings"
+          },
+          "children": [
+            {
+              "id": "backlight_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "LED Backlight"
+              },
+              "hint": {
+                "en": "Status LED on physical buttons"
+              },
+              "value": true
+            },
+            {
+              "id": "switch_mode_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Switch Mode"
+              },
+              "hint": {
+                "en": "Physical button behavior (global, all gangs)"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Toggle (Standard)"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "State (Sync)"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Momentary (Pulse)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "switch_mode_current",
+              "type": "label",
+              "label": {
+                "en": "Current Mode"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Global"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_global",
+              "type": "dropdown",
+              "label": {
+                "en": "Default (all gangs)"
+              },
+              "hint": {
+                "en": "Applies to all gangs when changed. Individual gang settings below can override."
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_global",
+              "type": "label",
+              "label": {
+                "en": "Current (Global)"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Power-On Gang 1"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior_gang1",
+              "type": "dropdown",
+              "label": {
+                "en": "Gang 1 Override"
+              },
+              "hint": {
+                "en": "Overrides global for this gang only"
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_current_gang1",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 1)"
+              },
+              "hint": {
+                "en": "Read from device"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Gang 2 & 3 (info)"
+          },
+          "children": [
+            {
+              "id": "power_on_current_gang2",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 2)"
+              },
+              "hint": {
+                "en": "Change from Gang 2 tile settings"
+              },
+              "value": "—"
+            },
+            {
+              "id": "power_on_current_gang3",
+              "type": "label",
+              "label": {
+                "en": "Current (Gang 3)"
+              },
+              "hint": {
+                "en": "Change from Gang 3 tile settings"
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Reliability"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Health Monitoring"
+              },
+              "hint": {
+                "en": "Mark offline when unreachable for 10 minutes"
+              },
+              "value": true
+            },
+            {
+              "id": "retry_stage",
+              "type": "dropdown",
+              "label": {
+                "en": "Retry Policy"
+              },
+              "hint": {
+                "en": "More retries = slower but more reliable"
+              },
+              "value": "balanced",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Off (no retries)"
+                  }
+                },
+                {
+                  "id": "balanced",
+                  "label": {
+                    "en": "Balanced (2x350ms)"
+                  }
+                },
+                {
+                  "id": "max",
+                  "label": {
+                    "en": "Max (5x600ms)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "retry_stage_current",
+              "type": "label",
+              "label": {
+                "en": "Current Policy"
+              },
+              "hint": {
+                "en": "Active retry configuration"
+              },
+              "value": "Balanced (2x350ms)"
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_yervjnlj",
+          "_TZ3000_vjhcenzo",
+          "_TZ3000_qxcnwv26",
+          "_TZ3000_eqsair32",
+          "_TZ3000_f09j9qjb",
+          "_TZ3000_fawk5xjv",
+          "_TZ3000_ok0ggpk7"
+        ],
+        "productId": [
+          "TS0003"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              4,
+              5,
+              6,
+              57345
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_3_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Hold the setup button 5s until LED blinks. Three tiles will be created."
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 3 Gang - Switch 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Gang 2"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang2",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Gang 2 Override"
+                    },
+                    "hint": {
+                      "en": "Overrides global for this gang only"
+                    },
+                    "value": "2",
+                    "values": [
+                      {
+                        "id": "0",
+                        "label": {
+                          "en": "Always Off"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "label": {
+                          "en": "Always On"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "label": {
+                          "en": "Last State"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang2",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Gang 2)"
+                    },
+                    "hint": {
+                      "en": "Read from device"
+                    },
+                    "value": "—"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Switch Mode"
+                },
+                "children": [
+                  {
+                    "id": "switch_mode_readonly",
+                    "type": "label",
+                    "label": {
+                      "en": "Mode"
+                    },
+                    "hint": {
+                      "en": "Global setting — change from Gang 1 (main tile)"
+                    },
+                    "value": "—"
+                  }
+                ]
+              }
+            ]
+          },
+          "thirdSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 3 Gang - Switch 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": [
+              {
+                "type": "group",
+                "label": {
+                  "en": "Power-On Gang 3"
+                },
+                "children": [
+                  {
+                    "id": "power_on_behavior_gang3",
+                    "type": "dropdown",
+                    "label": {
+                      "en": "Gang 3 Override"
+                    },
+                    "hint": {
+                      "en": "Overrides global for this gang only"
+                    },
+                    "value": "2",
+                    "values": [
+                      {
+                        "id": "0",
+                        "label": {
+                          "en": "Always Off"
+                        }
+                      },
+                      {
+                        "id": "1",
+                        "label": {
+                          "en": "Always On"
+                        }
+                      },
+                      {
+                        "id": "2",
+                        "label": {
+                          "en": "Last State"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "id": "power_on_current_gang3",
+                    "type": "label",
+                    "label": {
+                      "en": "Current (Gang 3)"
+                    },
+                    "hint": {
+                      "en": "Read from device"
+                    },
+                    "value": "—"
+                  }
+                ]
+              },
+              {
+                "type": "group",
+                "label": {
+                  "en": "Switch Mode"
+                },
+                "children": [
+                  {
+                    "id": "switch_mode_readonly",
+                    "type": "label",
+                    "label": {
+                      "en": "Mode"
+                    },
+                    "hint": {
+                      "en": "Global setting — change from Gang 1 (main tile)"
+                    },
+                    "value": "—"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "novadigital_switch_4_gang",
+      "name": {
+        "en": "NovaDigital Switch 4 Gang"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/novadigital_switch_4_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_4_gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Switch Settings"
+          },
+          "children": [
+            {
+              "id": "power_on_behavior",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-On Behavior"
+              },
+              "hint": {
+                "en": "How switches behave when power returns after an outage."
+              },
+              "value": "memory",
+              "values": [
+                {
+                  "id": "off",
+                  "label": {
+                    "en": "Always Off"
+                  }
+                },
+                {
+                  "id": "on",
+                  "label": {
+                    "en": "Always On"
+                  }
+                },
+                {
+                  "id": "memory",
+                  "label": {
+                    "en": "Remember Last State"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "power_on_behavior_current",
+              "type": "label",
+              "label": {
+                "en": "Current (read from device)"
+              },
+              "hint": {
+                "en": "Last value reported by the device. Updated automatically when the device sends its status."
+              },
+              "value": "—"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Reliability"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Health Monitoring"
+              },
+              "hint": {
+                "en": "Mark device unavailable when unreachable. Uses Basic cluster reports (every ~3 minutes)."
+              },
+              "value": true
+            }
+          ]
+        }
+      ],
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_shkxsgis",
+          "_TZE204_aagrxlbd"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "devices": {
+          "secondGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 4 Gang - Switch 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": []
+          },
+          "thirdGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 4 Gang - Switch 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": []
+          },
+          "fourthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 4 Gang - Switch 4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            },
+            "settings": []
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_4_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Four device tiles will be created, one for each gang."
+          }
+        }
+      }
+    },
+    {
+      "id": "novadigital_switch_6_gang",
+      "name": {
+        "en": "NovaDigital Wall Switch 6 Gang"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/novadigital_switch_6_gang/assets/images/large.png",
+        "small": "/drivers/novadigital_switch_6_gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_r731zlxk"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              61184
+            ],
+            "bindings": []
+          }
+        },
+        "devices": {
+          "secondGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 2"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "thirdGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 3"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "fourthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "fifthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 5"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "sixthGang": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "NovaDigital 6 Gang - Switch 6"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/novadigital_switch_6_gang/assets/icon.svg",
+          "instruction": {
+            "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Six device tiles will be created, one for each gang."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Health monitoring"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable availability monitoring"
+              },
+              "hint": {
+                "en": "Mark device unavailable when no activity for 25 minutes."
+              },
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Device information"
+          },
+          "children": [
+            {
+              "id": "_power_on_info",
+              "type": "label",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored."
+              },
+              "value": "Always Off (firmware default)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smartplug",
+      "name": {
+        "en": "Smart Plug with metering"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff",
+        "measure_power",
+        "meter_power",
+        "measure_current",
+        "measure_voltage"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "approximated": true
+        }
+      },
+      "energy": {
+        "cumulativeImportedCapability": "meter_power.imported"
+      },
+      "images": {
+        "large": "/drivers/smartplug/assets/images/large.png",
+        "small": "/drivers/smartplug/assets/images/small.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_88iqnhvd",
+          "_TZ3000_okaz9tjs",
+          "_TZ3210_fgwhjm9j"
+        ],
+        "productId": [
+          "TS011F"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              6,
+              1794,
+              2820
+            ],
+            "bindings": [
+              6,
+              1794,
+              2820
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold down on/off switch for aprox 5 seconds until the LED blinks rapidly."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device control"
+          },
+          "children": [
+            {
+              "id": "relay_status",
+              "type": "radio",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "State after power is restored."
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always on"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Remember last state"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "indicator_mode",
+              "type": "radio",
+              "label": {
+                "en": "LED indicator"
+              },
+              "hint": {
+                "en": "When to light the LED."
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "On when powered"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Off when powered"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "child_lock",
+              "type": "checkbox",
+              "label": {
+                "en": "Child lock"
+              },
+              "hint": {
+                "en": "Disable physical button."
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Energy measurement"
+          },
+          "children": [
+            {
+              "id": "powerFactor",
+              "type": "number",
+              "label": {
+                "en": "Power correction factor"
+              },
+              "hint": {
+                "en": "Multiply reported active power by this value. Use 1.0 for no correction."
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "energyFactor",
+              "type": "number",
+              "label": {
+                "en": "Energy correction factor"
+              },
+              "hint": {
+                "en": "Multiply reported energy (kWh) by this value. Use 1.0 for no correction."
+              },
+              "value": 1,
+              "min": 0.1,
+              "max": 2,
+              "step": 0.01
+            },
+            {
+              "id": "calcPower",
+              "type": "checkbox",
+              "label": {
+                "en": "Calculate power from V × A"
+              },
+              "hint": {
+                "en": "Compute power as Voltage × Current instead of using reported active power."
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Poll intervals"
+          },
+          "children": [
+            {
+              "id": "minReportPower",
+              "type": "number",
+              "label": {
+                "en": "Power poll interval (s)"
+              },
+              "value": 60,
+              "min": 10,
+              "max": 3600,
+              "step": 10,
+              "units": "s"
+            },
+            {
+              "id": "minReportCurrent",
+              "type": "number",
+              "label": {
+                "en": "Current poll interval (s)"
+              },
+              "value": 60,
+              "min": 10,
+              "max": 3600,
+              "step": 10,
+              "units": "s"
+            },
+            {
+              "id": "minReportVoltage",
+              "type": "number",
+              "label": {
+                "en": "Voltage poll interval (s)"
+              },
+              "value": 60,
+              "min": 10,
+              "max": 3600,
+              "step": 10,
+              "units": "s"
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Health monitoring"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable availability monitoring"
+              },
+              "hint": {
+                "en": "Mark device unavailable if no data for ~3.5 minutes."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "socket_power_strip",
+      "name": {
+        "en": "Power Strip 4 Sockets + USB"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Power"
+          }
+        }
+      },
+      "images": {
+        "large": "/drivers/socket_power_strip/assets/images/large.png",
+        "small": "/drivers/socket_power_strip/assets/images/small.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_cfnprab5"
+        ],
+        "productId": [
+          "TS011F"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "4": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "5": {
+            "clusters": [
+              0,
+              3,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "devices": {
+          "socket2": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Socket 2/4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "socket3": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Socket 3/4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "socket4": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Socket 4/4"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "usb": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "USB Port"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 5,
+                "usageOff": 0
+              }
+            }
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold on/off switch for 5 seconds until LED blinks."
+          }
+        }
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 1,
+          "usageOff": 0.5
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Device control"
+          },
+          "children": [
+            {
+              "id": "relay_status",
+              "type": "dropdown",
+              "label": {
+                "en": "Power-on behavior"
+              },
+              "hint": {
+                "en": "State of all sockets after power is restored."
+              },
+              "value": "2",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Always off"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Always on"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Restore last state"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "child_lock",
+              "type": "checkbox",
+              "label": {
+                "en": "Child lock"
+              },
+              "hint": {
+                "en": "Disable all physical buttons on the strip."
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Health monitoring"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable availability monitoring"
+              },
+              "hint": {
+                "en": "Mark device unavailable if no data is received for 10 minutes."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "temphumidclock",
+      "name": {
+        "en": "Tuya Temperature & Humidity Sensor with Clock"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_temperature",
+        "measure_humidity",
+        "measure_battery",
+        "alarm_battery"
+      ],
+      "capabilitiesOptions": {
+        "measure_temperature": {
+          "decimals": 1,
+          "title": {
+            "en": "Temperature"
+          },
+          "units": {
+            "en": "°C"
+          }
+        },
+        "measure_humidity": {
+          "decimals": 1,
+          "title": {
+            "en": "Humidity"
+          },
+          "units": {
+            "en": "%"
+          }
+        },
+        "measure_battery": {
+          "title": {
+            "en": "Battery"
+          }
+        },
+        "alarm_battery": {
+          "title": {
+            "en": "Low battery"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "AAA",
+          "AAA",
+          "AAA"
+        ]
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "small": "/drivers/temphumidclock/assets/images/small.png",
+        "large": "/drivers/temphumidclock/assets/images/large.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_cirvgep4",
+          "_TZE204_cirvgep4"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/temphumidclock/assets/learnmode.svg",
+          "instruction": {
+            "en": "Hold reset 10s until wireless icon blinks"
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Alerts"
+          },
+          "children": [
+            {
+              "id": "alarm_battery_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable low battery alert"
+              },
+              "hint": {
+                "en": "Show alert when battery drops below 50%."
+              },
+              "value": true
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Health monitoring"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Enable availability monitoring"
+              },
+              "hint": {
+                "en": "Mark device unavailable if no data for 8 hours."
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tuya_siren",
+      "name": {
+        "en": "Tuya Siren"
+      },
+      "class": "siren",
+      "capabilities": [
+        "onoff",
+        "measure_battery"
+      ],
+      "capabilitiesOptions": {
+        "onoff": {
+          "title": {
+            "en": "Siren"
+          },
+          "greyout": false
+        },
+        "measure_battery": {
+          "title": {
+            "en": "Battery Backup"
+          }
+        }
+      },
+      "energy": {
+        "batteries": [
+          "CR123A",
+          "CR123A"
+        ]
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "images": {
+        "small": "/drivers/tuya_siren/assets/images/small.png",
+        "large": "/drivers/tuya_siren/assets/images/large.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE204_q76rtoa9"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              61184
+            ],
+            "bindings": [
+              61184
+            ]
+          }
+        },
+        "learnmode": {
+          "instruction": {
+            "en": "Press and hold the button inside the battery compartment for approximately 5 seconds until the LED blinks rapidly."
+          }
+        }
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Alarm Settings"
+          },
+          "children": [
+            {
+              "id": "alarmvolume",
+              "type": "dropdown",
+              "label": {
+                "en": "Alarm volume"
+              },
+              "value": "2",
+              "hint": {
+                "en": "Set the volume of the Alarm sound"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Low"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Medium"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "High (default)"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "alarmsoundtime",
+              "type": "number",
+              "value": 10,
+              "min": 1,
+              "max": 65535,
+              "step": 1,
+              "units": {
+                "en": "Seconds"
+              },
+              "label": {
+                "en": "Alarm duration time"
+              },
+              "hint": {
+                "en": "Set the duration of the time the siren will sound its alarm music"
+              }
+            },
+            {
+              "id": "alarmtune",
+              "type": "dropdown",
+              "label": {
+                "en": "Alarm sound tune"
+              },
+              "value": "5",
+              "hint": {
+                "en": "Choose the tune of the alarm sound"
+              },
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "en": "Doorbell Chime"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "en": "Fur Elise"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "en": "Westminster Chimes"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "en": "Fast double door bell"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "en": "William Tell Overture"
+                  }
+                },
+                {
+                  "id": "5",
+                  "label": {
+                    "en": "Turkish March (default)"
+                  }
+                },
+                {
+                  "id": "6",
+                  "label": {
+                    "en": "Safe/Security Alarm"
+                  }
+                },
+                {
+                  "id": "7",
+                  "label": {
+                    "en": "Chemical Spill Alert"
+                  }
+                },
+                {
+                  "id": "8",
+                  "label": {
+                    "en": "Piercing Alarm Clock"
+                  }
+                },
+                {
+                  "id": "9",
+                  "label": {
+                    "en": "Smoke Alarm"
+                  }
+                },
+                {
+                  "id": "10",
+                  "label": {
+                    "en": "Dog Barking"
+                  }
+                },
+                {
+                  "id": "11",
+                  "label": {
+                    "en": "Police Siren"
+                  }
+                },
+                {
+                  "id": "12",
+                  "label": {
+                    "en": "Doorbell Chime (reverb)"
+                  }
+                },
+                {
+                  "id": "13",
+                  "label": {
+                    "en": "Mechanical Telephone"
+                  }
+                },
+                {
+                  "id": "14",
+                  "label": {
+                    "en": "Fire/Ambulance"
+                  }
+                },
+                {
+                  "id": "15",
+                  "label": {
+                    "en": "3/1 Elevator"
+                  }
+                },
+                {
+                  "id": "16",
+                  "label": {
+                    "en": "Buzzing Alarm Clock"
+                  }
+                },
+                {
+                  "id": "17",
+                  "label": {
+                    "en": "School Bell"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Health Monitoring"
+          },
+          "children": [
+            {
+              "id": "health_monitoring_enabled",
+              "type": "checkbox",
+              "label": {
+                "en": "Availability Monitoring"
+              },
+              "hint": {
+                "en": "Monitors device health and marks unavailable if no activity detected for 25 minutes (device has battery backup)"
+              },
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zigbee_repeater",
+      "name": {
+        "en": "Zigbee Repeater"
+      },
+      "class": "other",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [],
+      "images": {
+        "large": "/drivers/zigbee_repeater/assets/images/large.png",
+        "small": "/drivers/zigbee_repeater/assets/images/small.png"
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZ3000_m0vaazab",
+          "_TZ3000_5k5vh43t",
+          "_TZ3000_ufttklsz",
+          "_TZ3000_gszjt2xx",
+          "_TZ3000_nkkl7uzv",
+          "_TZ3000_nlsszmzl",
+          "_TZ3000_misw04hq",
+          "_TZ3000_wlquqiiz"
+        ],
+        "productId": [
+          "TS0207"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              3
+            ]
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/zigbee_repeater/assets/icon.svg",
+          "instruction": {
+            "en": "Put the device in a USB slot and let it power up."
+          }
+        }
+      }
+    }
+  ]
+}
