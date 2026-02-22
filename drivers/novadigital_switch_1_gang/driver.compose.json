@@ -1,0 +1,152 @@
+{
+  "id": "novadigital_switch_1_gang",
+  "name": {
+    "en": "NovaDigital Switch 1 Gang"
+  },
+  "class": "socket",
+  "platforms": ["local"],
+  "connectivity": ["zigbee"],
+  "capabilities": ["onoff"],
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "energy": {
+    "approximation": { "usageOn": 0, "usageOff": 0 }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": { "en": "Switch Settings" },
+      "children": [
+        {
+          "id": "backlight_enabled",
+          "type": "checkbox",
+          "label": { "en": "LED Backlight" },
+          "hint": { "en": "Status LED on physical button" },
+          "value": true
+        },
+        {
+          "id": "switch_mode_global",
+          "type": "dropdown",
+          "label": { "en": "Switch Mode" },
+          "hint": { "en": "Physical button behavior (global)" },
+          "value": "0",
+          "values": [
+            { "id": "0", "label": { "en": "Toggle (Standard)" } },
+            { "id": "1", "label": { "en": "State (Sync)" } },
+            { "id": "2", "label": { "en": "Momentary (Pulse)" } }
+          ]
+        },
+        {
+          "id": "switch_mode_current",
+          "type": "label",
+          "label": { "en": "Current Mode" },
+          "hint": { "en": "Read from device" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Power-On Global" },
+      "children": [
+        {
+          "id": "power_on_behavior_global",
+          "type": "dropdown",
+          "label": { "en": "Default behavior" },
+          "hint": { "en": "Applies and propagates to individual setting when changed" },
+          "value": "2",
+          "values": [
+            { "id": "0", "label": { "en": "Always Off" } },
+            { "id": "1", "label": { "en": "Always On" } },
+            { "id": "2", "label": { "en": "Last State" } }
+          ]
+        },
+        {
+          "id": "power_on_current_global",
+          "type": "label",
+          "label": { "en": "Current (Global)" },
+          "hint": { "en": "Read from device" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Power-On Individual" },
+      "children": [
+        {
+          "id": "power_on_behavior_gang1",
+          "type": "dropdown",
+          "label": { "en": "Override" },
+          "hint": { "en": "Individual override (cluster 0xE001) — overrides global" },
+          "value": "2",
+          "values": [
+            { "id": "0", "label": { "en": "Always Off" } },
+            { "id": "1", "label": { "en": "Always On" } },
+            { "id": "2", "label": { "en": "Last State" } }
+          ]
+        },
+        {
+          "id": "power_on_current_gang1",
+          "type": "label",
+          "label": { "en": "Current (Individual)" },
+          "hint": { "en": "Read from device" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Reliability" },
+      "children": [
+        {
+          "id": "health_monitoring_enabled",
+          "type": "checkbox",
+          "label": { "en": "Health Monitoring" },
+          "hint": { "en": "Mark offline when unreachable for 10 minutes" },
+          "value": true
+        },
+        {
+          "id": "retry_stage",
+          "type": "dropdown",
+          "label": { "en": "Retry Policy" },
+          "hint": { "en": "More retries = slower but more reliable" },
+          "value": "balanced",
+          "values": [
+            { "id": "off", "label": { "en": "Off (no retries)" } },
+            { "id": "balanced", "label": { "en": "Balanced (2x350ms)" } },
+            { "id": "max", "label": { "en": "Max (5x600ms)" } }
+          ]
+        },
+        {
+          "id": "retry_stage_current",
+          "type": "label",
+          "label": { "en": "Current Policy" },
+          "hint": { "en": "Active retry configuration" },
+          "value": "Balanced (2x350ms)"
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": [
+      "_TZ3000_ovyaisip",
+      "_TZ3000_pk8tgtdb"
+    ],
+    "productId": ["TS0001"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 57345],
+        "bindings": [6]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Hold the setup button 5s until LED blinks."
+      }
+    }
+  }
+}

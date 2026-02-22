@@ -1,0 +1,63 @@
+{
+  "id": "tuya_siren",
+  "name": {
+    "en": "Tuya Siren"
+  },
+  "class": "siren",
+  "capabilities": [
+    "onoff",
+    "measure_battery"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Siren"
+      },
+      "greyout": false
+    },
+    "measure_battery": {
+      "title": {
+        "en": "Battery Backup"
+      }
+    }
+  },
+  "energy": {
+    "batteries": ["CR123A", "CR123A"]
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "zigbee"
+  ],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "zigbee": {
+    "manufacturerName": [
+      "_TZE204_q76rtoa9"
+    ],
+    "productId": [
+      "TS0601"
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": [
+          0,
+          4,
+          5,
+          61184
+        ],
+        "bindings": [
+          61184
+        ]
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Press and hold the button inside the battery compartment for approximately 5 seconds until the LED blinks rapidly."
+      }
+    }
+  }
+}

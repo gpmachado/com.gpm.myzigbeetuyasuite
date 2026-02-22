@@ -1,0 +1,505 @@
+{
+  "id": "moes_dimmer_3_gang",
+  "name": {
+    "en": "Moes Dimmer 3 Gang"
+  },
+  "class": "socket",
+  "platforms": ["local"],
+  "connectivity": ["zigbee"],
+  "capabilities": ["onoff", "dim"],
+  "capabilitiesOptions": {
+    "dim": {
+      "opts": {
+        "duration": true
+      },
+      "title": {
+        "en": "Fan Speed"
+      },
+      "units": {
+        "en": "%"
+      }
+    }
+  },
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "energy": {
+    "approximation": {
+      "usageOn": 150,
+      "usageOff": 0
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Speed Control"
+      },
+      "children": [
+        {
+          "id": "minimumBrightness",
+          "type": "number",
+          "label": {
+            "en": "Min Speed"
+          },
+          "hint": {
+            "en": "Minimum fan speed percentage for this gang"
+          },
+          "value": 10,
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "units": "%"
+        },
+        {
+          "id": "maximumBrightness",
+          "type": "number",
+          "label": {
+            "en": "Max Speed"
+          },
+          "hint": {
+            "en": "Maximum fan speed percentage for this gang"
+          },
+          "value": 100,
+          "min": 2,
+          "max": 100,
+          "step": 1,
+          "units": "%"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Performance & Protection"
+      },
+      "children": [
+        {
+          "id": "enableDebouncing",
+          "type": "checkbox",
+          "label": {
+            "en": "Enable Debouncing"
+          },
+          "hint": {
+            "en": "Reduces motor stress and network traffic during rapid speed changes"
+          },
+          "value": true
+        },
+        {
+          "id": "debounceDelay",
+          "type": "number",
+          "label": {
+            "en": "Debounce Delay"
+          },
+          "hint": {
+            "en": "Wait time before applying speed changes (ms)"
+          },
+          "value": 800,
+          "min": 0,
+          "max": 3000,
+          "step": 100,
+          "units": "ms"
+        },
+        {
+          "id": "enableMotorProtection",
+          "type": "checkbox",
+          "label": {
+            "en": "Motor Protection"
+          },
+          "hint": {
+            "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers"
+          },
+          "value": true
+        },
+        {
+          "id": "motorStartupDelay",
+          "type": "number",
+          "label": {
+            "en": "Motor Startup Delay"
+          },
+          "hint": {
+            "en": "Delay between setting speed and powering on motor (ms)"
+          },
+          "value": 1500,
+          "min": 0,
+          "max": 3000,
+          "step": 100,
+          "units": "ms"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Global Settings"
+      },
+      "children": [
+        {
+          "id": "powerOnState",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Behavior (All Gangs)"
+          },
+          "hint": {
+            "en": "Controls all 3 gangs after power outage"
+          },
+          "value": "memory",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On"
+              }
+            },
+            {
+              "id": "memory",
+              "label": {
+                "en": "Remember State"
+              }
+            }
+          ]
+        },
+        {
+          "id": "backlightMode",
+          "type": "dropdown",
+          "label": {
+            "en": "LED Mode (All Gangs)"
+          },
+          "hint": {
+            "en": "Status LED behavior for all 3 gangs"
+          },
+          "value": "normal",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off"
+              }
+            },
+            {
+              "id": "normal",
+              "label": {
+                "en": "On when running"
+              }
+            },
+            {
+              "id": "inverted",
+              "label": {
+                "en": "On when stopped"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": ["_TZE204_1v1dxkck"],
+    "productId": ["TS0601"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 4, 5, 61184],
+        "bindings": [61184]
+      }
+    },
+    "devices": {
+      "secondGang": {
+        "class": "socket",
+        "capabilities": ["onoff", "dim"],
+        "capabilitiesOptions": {
+          "dim": {
+            "title": {
+              "en": "Fan Speed"
+            },
+            "units": {
+              "en": "%"
+            }
+          }
+        },
+        "name": {
+          "en": "Moes Dimmer 3 Gang - Gang 2"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 150,
+            "usageOff": 0
+          }
+        },
+        "settings": [
+          {
+            "type": "group",
+            "label": {
+              "en": "Speed Control"
+            },
+            "children": [
+              {
+                "id": "minimumBrightness",
+                "type": "number",
+                "label": {
+                  "en": "Min Speed"
+                },
+                "hint": {
+                  "en": "Minimum fan speed percentage for this gang"
+                },
+                "value": 10,
+                "min": 1,
+                "max": 100,
+                "step": 1,
+                "units": "%"
+              },
+              {
+                "id": "maximumBrightness",
+                "type": "number",
+                "label": {
+                  "en": "Max Speed"
+                },
+                "hint": {
+                  "en": "Maximum fan speed percentage for this gang"
+                },
+                "value": 100,
+                "min": 2,
+                "max": 100,
+                "step": 1,
+                "units": "%"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Performance & Protection"
+            },
+            "children": [
+              {
+                "id": "enableDebouncing",
+                "type": "checkbox",
+                "label": {
+                  "en": "Enable Debouncing"
+                },
+                "hint": {
+                  "en": "Reduces motor stress and network traffic during rapid speed changes"
+                },
+                "value": true
+              },
+              {
+                "id": "debounceDelay",
+                "type": "number",
+                "label": {
+                  "en": "Debounce Delay"
+                },
+                "hint": {
+                  "en": "Wait time before applying speed changes (ms)"
+                },
+                "value": 800,
+                "min": 0,
+                "max": 3000,
+                "step": 100,
+                "units": "ms"
+              },
+              {
+                "id": "enableMotorProtection",
+                "type": "checkbox",
+                "label": {
+                  "en": "Motor Protection"
+                },
+                "hint": {
+                  "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers"
+                },
+                "value": true
+              },
+              {
+                "id": "motorStartupDelay",
+                "type": "number",
+                "label": {
+                  "en": "Motor Startup Delay"
+                },
+                "hint": {
+                  "en": "Delay between setting speed and powering on motor (ms)"
+                },
+                "value": 1500,
+                "min": 0,
+                "max": 3000,
+                "step": 100,
+                "units": "ms"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Global Settings"
+            },
+            "children": [
+              {
+                "id": "_globalSettingsInfo",
+                "type": "label",
+                "label": {
+                  "en": "Power-On & LED Settings"
+                },
+                "hint": {
+                  "en": "Global settings (Power-On behavior and LED mode) are configured in Gang 1 (Main) and apply to all 3 gangs."
+                },
+                "value": ""
+              }
+            ]
+          }
+        ]
+      },
+      "thirdGang": {
+        "class": "socket",
+        "capabilities": ["onoff", "dim"],
+        "capabilitiesOptions": {
+          "dim": {
+            "title": {
+              "en": "Fan Speed"
+            },
+            "units": {
+              "en": "%"
+            }
+          }
+        },
+        "name": {
+          "en": "Moes Dimmer 3 Gang - Gang 3"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 150,
+            "usageOff": 0
+          }
+        },
+        "settings": [
+          {
+            "type": "group",
+            "label": {
+              "en": "Speed Control"
+            },
+            "children": [
+              {
+                "id": "minimumBrightness",
+                "type": "number",
+                "label": {
+                  "en": "Min Speed"
+                },
+                "hint": {
+                  "en": "Minimum fan speed percentage for this gang"
+                },
+                "value": 10,
+                "min": 1,
+                "max": 100,
+                "step": 1,
+                "units": "%"
+              },
+              {
+                "id": "maximumBrightness",
+                "type": "number",
+                "label": {
+                  "en": "Max Speed"
+                },
+                "hint": {
+                  "en": "Maximum fan speed percentage for this gang"
+                },
+                "value": 100,
+                "min": 2,
+                "max": 100,
+                "step": 1,
+                "units": "%"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Performance & Protection"
+            },
+            "children": [
+              {
+                "id": "enableDebouncing",
+                "type": "checkbox",
+                "label": {
+                  "en": "Enable Debouncing"
+                },
+                "hint": {
+                  "en": "Reduces motor stress and network traffic during rapid speed changes"
+                },
+                "value": true
+              },
+              {
+                "id": "debounceDelay",
+                "type": "number",
+                "label": {
+                  "en": "Debounce Delay"
+                },
+                "hint": {
+                  "en": "Wait time before applying speed changes (ms)"
+                },
+                "value": 800,
+                "min": 0,
+                "max": 3000,
+                "step": 100,
+                "units": "ms"
+              },
+              {
+                "id": "enableMotorProtection",
+                "type": "checkbox",
+                "label": {
+                  "en": "Motor Protection"
+                },
+                "hint": {
+                  "en": "Adds startup delay to prevent motor stress. Disable for LED dimmers"
+                },
+                "value": true
+              },
+              {
+                "id": "motorStartupDelay",
+                "type": "number",
+                "label": {
+                  "en": "Motor Startup Delay"
+                },
+                "hint": {
+                  "en": "Delay between setting speed and powering on motor (ms)"
+                },
+                "value": 1500,
+                "min": 0,
+                "max": 3000,
+                "step": 100,
+                "units": "ms"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": {
+              "en": "Global Settings"
+            },
+            "children": [
+              {
+                "id": "_globalSettingsInfo",
+                "type": "label",
+                "label": {
+                  "en": "Power-On & LED Settings"
+                },
+                "hint": {
+                  "en": "Global settings (Power-On behavior and LED mode) are configured in Gang 1 (Main) and apply to all 3 gangs."
+                },
+                "value": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Three fan controllers will be created, one for each channel. Gang 1 (Main) contains global settings that affect all gangs. Press reset switch 10 times rapidly until continuous beep to enter pairing mode."
+      }
+    }
+  }
+}

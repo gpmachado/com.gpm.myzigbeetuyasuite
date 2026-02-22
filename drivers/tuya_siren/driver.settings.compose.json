@@ -1,0 +1,198 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Alarm Settings"
+    },
+    "children": [
+      {
+        "id": "alarmvolume",
+        "type": "dropdown",
+        "label": {
+          "en": "Alarm volume"
+        },
+        "value": "2",
+        "hint": {
+          "en": "Set the volume of the Alarm sound"
+        },
+        "values": [
+          {
+            "id": "0",
+            "label": {
+              "en": "Low"
+            }
+          },
+          {
+            "id": "1",
+            "label": {
+              "en": "Medium"
+            }
+          },
+          {
+            "id": "2",
+            "label": {
+              "en": "High (default)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "alarmsoundtime",
+        "type": "number",
+        "value": 10,
+        "min": 1,
+        "max": 65535,
+        "step": 1,
+        "units": {
+          "en": "Seconds"
+        },
+        "label": {
+          "en": "Alarm duration time"
+        },
+        "hint": {
+          "en": "Set the duration of the time the siren will sound its alarm music"
+        }
+      },
+      {
+        "id": "alarmtune",
+        "type": "dropdown",
+        "label": {
+          "en": "Alarm sound tune"
+        },
+        "value": "5",
+        "hint": {
+          "en": "Choose the tune of the alarm sound"
+        },
+        "values": [
+          {
+            "id": "0",
+            "label": {
+              "en": "Doorbell Chime"
+            }
+          },
+          {
+            "id": "1",
+            "label": {
+              "en": "Fur Elise"
+            }
+          },
+          {
+            "id": "2",
+            "label": {
+              "en": "Westminster Chimes"
+            }
+          },
+          {
+            "id": "3",
+            "label": {
+              "en": "Fast double door bell"
+            }
+          },
+          {
+            "id": "4",
+            "label": {
+              "en": "William Tell Overture"
+            }
+          },
+          {
+            "id": "5",
+            "label": {
+              "en": "Turkish March (default)"
+            }
+          },
+          {
+            "id": "6",
+            "label": {
+              "en": "Safe/Security Alarm"
+            }
+          },
+          {
+            "id": "7",
+            "label": {
+              "en": "Chemical Spill Alert"
+            }
+          },
+          {
+            "id": "8",
+            "label": {
+              "en": "Piercing Alarm Clock"
+            }
+          },
+          {
+            "id": "9",
+            "label": {
+              "en": "Smoke Alarm"
+            }
+          },
+          {
+            "id": "10",
+            "label": {
+              "en": "Dog Barking"
+            }
+          },
+          {
+            "id": "11",
+            "label": {
+              "en": "Police Siren"
+            }
+          },
+          {
+            "id": "12",
+            "label": {
+              "en": "Doorbell Chime (reverb)"
+            }
+          },
+          {
+            "id": "13",
+            "label": {
+              "en": "Mechanical Telephone"
+            }
+          },
+          {
+            "id": "14",
+            "label": {
+              "en": "Fire/Ambulance"
+            }
+          },
+          {
+            "id": "15",
+            "label": {
+              "en": "3/1 Elevator"
+            }
+          },
+          {
+            "id": "16",
+            "label": {
+              "en": "Buzzing Alarm Clock"
+            }
+          },
+          {
+            "id": "17",
+            "label": {
+              "en": "School Bell"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Health Monitoring"
+    },
+    "children": [
+      {
+        "id": "health_monitoring_enabled",
+        "type": "checkbox",
+        "label": {
+          "en": "Availability Monitoring"
+        },
+        "hint": {
+          "en": "Monitors device health and marks unavailable if no activity detected for 25 minutes (device has battery backup)"
+        },
+        "value": true
+      }
+    ]
+  }
+]

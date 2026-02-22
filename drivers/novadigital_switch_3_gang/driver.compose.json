@@ -1,0 +1,283 @@
+{
+  "id": "novadigital_switch_3_gang",
+  "name": {
+    "en": "NovaDigital Switch 3 Gang"
+  },
+  "class": "socket",
+  "platforms": ["local"],
+  "connectivity": ["zigbee"],
+  "capabilities": ["onoff"],
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "energy": {
+    "approximation": { "usageOn": 0, "usageOff": 0 }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": { "en": "Switch Settings" },
+      "children": [
+        {
+          "id": "backlight_enabled",
+          "type": "checkbox",
+          "label": { "en": "LED Backlight" },
+          "hint": { "en": "Status LED on physical buttons" },
+          "value": true
+        },
+        {
+          "id": "switch_mode_global",
+          "type": "dropdown",
+          "label": { "en": "Switch Mode" },
+          "hint": { "en": "Physical button behavior (global, all gangs)" },
+          "value": "0",
+          "values": [
+            { "id": "0", "label": { "en": "Toggle (Standard)" } },
+            { "id": "1", "label": { "en": "State (Sync)" } },
+            { "id": "2", "label": { "en": "Momentary (Pulse)" } }
+          ]
+        },
+        {
+          "id": "switch_mode_current",
+          "type": "label",
+          "label": { "en": "Current Mode" },
+          "hint": { "en": "Read from device" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Power-On Global" },
+      "children": [
+        {
+          "id": "power_on_behavior_global",
+          "type": "dropdown",
+          "label": { "en": "Default (all gangs)" },
+          "hint": { "en": "Applies to all gangs when changed. Individual gang settings below can override." },
+          "value": "2",
+          "values": [
+            { "id": "0", "label": { "en": "Always Off" } },
+            { "id": "1", "label": { "en": "Always On" } },
+            { "id": "2", "label": { "en": "Last State" } }
+          ]
+        },
+        {
+          "id": "power_on_current_global",
+          "type": "label",
+          "label": { "en": "Current (Global)" },
+          "hint": { "en": "Read from device" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Power-On Gang 1" },
+      "children": [
+        {
+          "id": "power_on_behavior_gang1",
+          "type": "dropdown",
+          "label": { "en": "Gang 1 Override" },
+          "hint": { "en": "Overrides global for this gang only" },
+          "value": "2",
+          "values": [
+            { "id": "0", "label": { "en": "Always Off" } },
+            { "id": "1", "label": { "en": "Always On" } },
+            { "id": "2", "label": { "en": "Last State" } }
+          ]
+        },
+        {
+          "id": "power_on_current_gang1",
+          "type": "label",
+          "label": { "en": "Current (Gang 1)" },
+          "hint": { "en": "Read from device" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Gang 2 & 3 (info)" },
+      "children": [
+        {
+          "id": "power_on_current_gang2",
+          "type": "label",
+          "label": { "en": "Current (Gang 2)" },
+          "hint": { "en": "Change from Gang 2 tile settings" },
+          "value": "—"
+        },
+        {
+          "id": "power_on_current_gang3",
+          "type": "label",
+          "label": { "en": "Current (Gang 3)" },
+          "hint": { "en": "Change from Gang 3 tile settings" },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": { "en": "Reliability" },
+      "children": [
+        {
+          "id": "health_monitoring_enabled",
+          "type": "checkbox",
+          "label": { "en": "Health Monitoring" },
+          "hint": { "en": "Mark offline when unreachable for 10 minutes" },
+          "value": true
+        },
+        {
+          "id": "retry_stage",
+          "type": "dropdown",
+          "label": { "en": "Retry Policy" },
+          "hint": { "en": "More retries = slower but more reliable" },
+          "value": "balanced",
+          "values": [
+            { "id": "off", "label": { "en": "Off (no retries)" } },
+            { "id": "balanced", "label": { "en": "Balanced (2x350ms)" } },
+            { "id": "max", "label": { "en": "Max (5x600ms)" } }
+          ]
+        },
+        {
+          "id": "retry_stage_current",
+          "type": "label",
+          "label": { "en": "Current Policy" },
+          "hint": { "en": "Active retry configuration" },
+          "value": "Balanced (2x350ms)"
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": [
+      "_TZ3000_yervjnlj",
+      "_TZ3000_vjhcenzo",
+      "_TZ3000_qxcnwv26",
+      "_TZ3000_eqsair32",
+      "_TZ3000_f09j9qjb",
+      "_TZ3000_fawk5xjv",
+      "_TZ3000_ok0ggpk7"
+    ],
+    "productId": ["TS0003"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 3, 4, 5, 6, 57345],
+        "bindings": [6]
+      },
+      "2": {
+        "clusters": [4, 5, 6, 57345],
+        "bindings": [6]
+      },
+      "3": {
+        "clusters": [4, 5, 6, 57345],
+        "bindings": [6]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Hold the setup button 5s until LED blinks. Three tiles will be created."
+      }
+    },
+    "devices": {
+      "secondSwitch": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 3 Gang - Switch 2" },
+        "energy": {
+          "approximation": { "usageOn": 0, "usageOff": 0 }
+        },
+        "settings": [
+          {
+            "type": "group",
+            "label": { "en": "Power-On Gang 2" },
+            "children": [
+              {
+                "id": "power_on_behavior_gang2",
+                "type": "dropdown",
+                "label": { "en": "Gang 2 Override" },
+                "hint": { "en": "Overrides global for this gang only" },
+                "value": "2",
+                "values": [
+                  { "id": "0", "label": { "en": "Always Off" } },
+                  { "id": "1", "label": { "en": "Always On" } },
+                  { "id": "2", "label": { "en": "Last State" } }
+                ]
+              },
+              {
+                "id": "power_on_current_gang2",
+                "type": "label",
+                "label": { "en": "Current (Gang 2)" },
+                "hint": { "en": "Read from device" },
+                "value": "—"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": { "en": "Switch Mode" },
+            "children": [
+              {
+                "id": "switch_mode_readonly",
+                "type": "label",
+                "label": { "en": "Mode" },
+                "hint": { "en": "Global setting — change from Gang 1 (main tile)" },
+                "value": "—"
+              }
+            ]
+          }
+        ]
+      },
+      "thirdSwitch": {
+        "class": "socket",
+        "capabilities": ["onoff"],
+        "name": { "en": "NovaDigital 3 Gang - Switch 3" },
+        "energy": {
+          "approximation": { "usageOn": 0, "usageOff": 0 }
+        },
+        "settings": [
+          {
+            "type": "group",
+            "label": { "en": "Power-On Gang 3" },
+            "children": [
+              {
+                "id": "power_on_behavior_gang3",
+                "type": "dropdown",
+                "label": { "en": "Gang 3 Override" },
+                "hint": { "en": "Overrides global for this gang only" },
+                "value": "2",
+                "values": [
+                  { "id": "0", "label": { "en": "Always Off" } },
+                  { "id": "1", "label": { "en": "Always On" } },
+                  { "id": "2", "label": { "en": "Last State" } }
+                ]
+              },
+              {
+                "id": "power_on_current_gang3",
+                "type": "label",
+                "label": { "en": "Current (Gang 3)" },
+                "hint": { "en": "Read from device" },
+                "value": "—"
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "label": { "en": "Switch Mode" },
+            "children": [
+              {
+                "id": "switch_mode_readonly",
+                "type": "label",
+                "label": { "en": "Mode" },
+                "hint": { "en": "Global setting — change from Gang 1 (main tile)" },
+                "value": "—"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

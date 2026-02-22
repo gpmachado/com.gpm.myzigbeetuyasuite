@@ -1,0 +1,28 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Health monitoring" },
+    "children": [
+      {
+        "id": "health_monitoring_enabled",
+        "type": "checkbox",
+        "label": { "en": "Enable availability monitoring" },
+        "hint": { "en": "Mark device unavailable when no activity for 25 minutes." },
+        "value": true
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Device information" },
+    "children": [
+      {
+        "id": "_power_on_info",
+        "type": "label",
+        "label": { "en": "Power-on behavior" },
+        "hint": { "en": "This firmware does not support configurable power-on behavior. All switches turn OFF when power is restored." },
+        "value": "Always Off (firmware default)"
+      }
+    ]
+  }
+]

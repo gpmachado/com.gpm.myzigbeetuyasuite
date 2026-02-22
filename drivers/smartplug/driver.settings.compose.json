@@ -1,0 +1,121 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Device control" },
+    "children": [
+      {
+        "id": "relay_status",
+        "type": "radio",
+        "label": { "en": "Power-on behavior" },
+        "hint": { "en": "State after power is restored." },
+        "value": "2",
+        "values": [
+          { "id": "0", "label": { "en": "Always off" } },
+          { "id": "1", "label": { "en": "Always on" } },
+          { "id": "2", "label": { "en": "Remember last state" } }
+        ]
+      },
+      {
+        "id": "indicator_mode",
+        "type": "radio",
+        "label": { "en": "LED indicator" },
+        "hint": { "en": "When to light the LED." },
+        "value": "1",
+        "values": [
+          { "id": "0", "label": { "en": "Always off" } },
+          { "id": "1", "label": { "en": "On when powered" } },
+          { "id": "2", "label": { "en": "Off when powered" } }
+        ]
+      },
+      {
+        "id": "child_lock",
+        "type": "checkbox",
+        "label": { "en": "Child lock" },
+        "hint": { "en": "Disable physical button." },
+        "value": false
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Energy measurement" },
+    "children": [
+      {
+        "id": "powerFactor",
+        "type": "number",
+        "label": { "en": "Power correction factor" },
+        "hint": { "en": "Multiply reported active power by this value. Use 1.0 for no correction." },
+        "value": 1,
+        "min": 0.1,
+        "max": 2,
+        "step": 0.01
+      },
+      {
+        "id": "energyFactor",
+        "type": "number",
+        "label": { "en": "Energy correction factor" },
+        "hint": { "en": "Multiply reported energy (kWh) by this value. Use 1.0 for no correction." },
+        "value": 1,
+        "min": 0.1,
+        "max": 2,
+        "step": 0.01
+      },
+      {
+        "id": "calcPower",
+        "type": "checkbox",
+        "label": { "en": "Calculate power from V × A" },
+        "hint": { "en": "Compute power as Voltage × Current instead of using reported active power." },
+        "value": false
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Poll intervals" },
+    "children": [
+      {
+        "id": "minReportPower",
+        "type": "number",
+        "label": { "en": "Power poll interval (s)" },
+        "value": 60,
+        "min": 10,
+        "max": 3600,
+        "step": 10,
+        "units": "s"
+      },
+      {
+        "id": "minReportCurrent",
+        "type": "number",
+        "label": { "en": "Current poll interval (s)" },
+        "value": 60,
+        "min": 10,
+        "max": 3600,
+        "step": 10,
+        "units": "s"
+      },
+      {
+        "id": "minReportVoltage",
+        "type": "number",
+        "label": { "en": "Voltage poll interval (s)" },
+        "value": 60,
+        "min": 10,
+        "max": 3600,
+        "step": 10,
+        "units": "s"
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Health monitoring" },
+    "children": [
+      {
+        "id": "health_monitoring_enabled",
+        "type": "checkbox",
+        "label": { "en": "Enable availability monitoring" },
+        "hint": { "en": "Mark device unavailable if no data for ~3.5 minutes." },
+        "value": true
+      }
+    ]
+  }
+]

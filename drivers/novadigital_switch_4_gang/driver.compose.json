@@ -1,0 +1,168 @@
+{
+  "id": "novadigital_switch_4_gang",
+  "name": {
+    "en": "NovaDigital Switch 4 Gang"
+  },
+  "class": "socket",
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "zigbee"
+  ],
+  "capabilities": [
+    "onoff"
+  ],
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "energy": {
+    "approximation": {
+      "usageOn": 0,
+      "usageOff": 0
+    }
+  },
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Switch Settings"
+      },
+      "children": [
+        {
+          "id": "power_on_behavior",
+          "type": "dropdown",
+          "label": {
+            "en": "Power-On Behavior"
+          },
+          "hint": {
+            "en": "How switches behave when power returns after an outage."
+          },
+          "value": "memory",
+          "values": [
+            {
+              "id": "off",
+              "label": {
+                "en": "Always Off"
+              }
+            },
+            {
+              "id": "on",
+              "label": {
+                "en": "Always On"
+              }
+            },
+            {
+              "id": "memory",
+              "label": {
+                "en": "Remember Last State"
+              }
+            }
+          ]
+        },
+        {
+          "id": "power_on_behavior_current",
+          "type": "label",
+          "label": {
+            "en": "Current (read from device)"
+          },
+          "hint": {
+            "en": "Last value reported by the device. Updated automatically when the device sends its status."
+          },
+          "value": "—"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Reliability"
+      },
+      "children": [
+        {
+          "id": "health_monitoring_enabled",
+          "type": "checkbox",
+          "label": {
+            "en": "Health Monitoring"
+          },
+          "hint": {
+            "en": "Mark device unavailable when unreachable. Uses Basic cluster reports (every ~3 minutes)."
+          },
+          "value": true
+        }
+      ]
+    }
+  ],
+  "zigbee": {
+    "manufacturerName": [
+      "_TZE200_shkxsgis",
+      "_TZE204_aagrxlbd"
+    ],
+    "productId": [
+      "TS0601"
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": [ 0, 4, 5, 61184],
+        "bindings": [61184]
+      }
+    },
+    "devices": {
+      "secondGang": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "NovaDigital 4 Gang - Switch 2"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
+        "settings": []
+      },
+      "thirdGang": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "NovaDigital 4 Gang - Switch 3"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
+        "settings": []
+      },
+      "fourthGang": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "NovaDigital 4 Gang - Switch 4"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        },
+        "settings": []
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/icon.svg",
+      "instruction": {
+        "en": "Press and hold the setup button for 5 seconds until the LED starts blinking. Four device tiles will be created, one for each gang."
+      }
+    }
+  }
+}

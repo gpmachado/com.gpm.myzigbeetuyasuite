@@ -1,0 +1,30 @@
+{
+  "triggers": [
+    {
+      "id": "gas_alarm_on",
+      "title": {
+        "en": "Gas detected"
+      },
+      "hint": {
+        "en": "Triggered when combustible gas is detected"
+      }
+    },
+    {
+      "id": "gas_alarm_off",
+      "title": {
+        "en": "Gas cleared"
+      },
+      "hint": {
+        "en": "Triggered when gas level returns to normal"
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "is_gas_detected",
+      "title": {
+        "en": "Gas !{{is|is not}} detected"
+      }
+    }
+  ]
+}

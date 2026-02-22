@@ -1,0 +1,28 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Alerts" },
+    "children": [
+      {
+        "id": "alarm_battery_enabled",
+        "type": "checkbox",
+        "label": { "en": "Enable low battery alert" },
+        "hint": { "en": "Show alert when battery drops below 20%." },
+        "value": true
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Health monitoring" },
+    "children": [
+      {
+        "id": "health_monitoring_enabled",
+        "type": "checkbox",
+        "label": { "en": "Enable availability monitoring" },
+        "hint": { "en": "Mark device unavailable if no data for 24 hours." },
+        "value": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "type": "group",
+    "label": { "en": "Device control" },
+    "children": [
+      {
+        "id": "relay_status",
+        "type": "dropdown",
+        "label": { "en": "Power-on behavior" },
+        "hint": { "en": "State of all sockets after power is restored." },
+        "value": "2",
+        "values": [
+          { "id": "0", "label": { "en": "Always off" } },
+          { "id": "1", "label": { "en": "Always on" } },
+          { "id": "2", "label": { "en": "Restore last state" } }
+        ]
+      },
+      {
+        "id": "child_lock",
+        "type": "checkbox",
+        "label": { "en": "Child lock" },
+        "hint": { "en": "Disable all physical buttons on the strip." },
+        "value": false
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": { "en": "Health monitoring" },
+    "children": [
+      {
+        "id": "health_monitoring_enabled",
+        "type": "checkbox",
+        "label": { "en": "Enable availability monitoring" },
+        "hint": { "en": "Mark device unavailable if no data is received for 10 minutes." },
+        "value": true
+      }
+    ]
+  }
+]

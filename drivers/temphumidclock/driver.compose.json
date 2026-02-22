@@ -1,0 +1,56 @@
+{
+  "id": "temphumidclock",
+  "name": {
+    "en": "Tuya Temperature & Humidity Sensor with Clock"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_temperature",
+    "measure_humidity",
+    "measure_battery",
+    "alarm_battery"
+  ],
+  "capabilitiesOptions": {
+    "measure_temperature": {
+      "decimals": 1,
+      "title": { "en": "Temperature" },
+      "units": { "en": "°C" }
+    },
+    "measure_humidity": {
+      "decimals": 1,
+      "title": { "en": "Humidity" },
+      "units": { "en": "%" }
+    },
+    "measure_battery": {
+      "title": { "en": "Battery" }
+    },
+    "alarm_battery": {
+      "title": { "en": "Low battery" }
+    }
+  },
+  "energy": {
+    "batteries": ["AAA", "AAA", "AAA"]
+  },
+  "platforms": ["local"],
+  "connectivity": ["zigbee"],
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
+  "zigbee": {
+    "manufacturerName": ["_TZE200_cirvgep4", "_TZE204_cirvgep4"],
+    "productId": ["TS0601"],
+    "endpoints": {
+      "1": {
+        "clusters": [0, 4, 5, 61184],
+        "bindings": [61184]
+      }
+    },
+    "learnmode": {
+      "image": "{{driverAssetsPath}}/learnmode.svg",
+      "instruction": {
+        "en": "Hold reset 10s until wireless icon blinks"
+      }
+    }
+  }
+}

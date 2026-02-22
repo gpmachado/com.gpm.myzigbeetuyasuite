@@ -1,0 +1,170 @@
+{
+  "id": "socket_power_strip",
+  "name": {
+    "en": "Power Strip 4 Sockets + USB"
+  },
+  "class": "socket",
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "zigbee"
+  ],
+  "capabilities": [
+    "onoff"
+  ],
+  "capabilitiesOptions": {
+    "onoff": {
+      "title": {
+        "en": "Power"
+      }
+    }
+  },
+  "images": {
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "small": "{{driverAssetsPath}}/images/small.png"
+  },
+  "zigbee": {
+    "manufacturerName": [
+      "_TZ3000_cfnprab5"
+    ],
+    "productId": [
+      "TS011F"
+    ],
+    "endpoints": {
+      "1": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "2": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "3": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "4": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bindings": [
+          6
+        ]
+      },
+      "5": {
+        "clusters": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bindings": [
+          6
+        ]
+      }
+    },
+    "devices": {
+      "socket2": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "Socket 2/4"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        }
+      },
+      "socket3": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "Socket 3/4"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        }
+      },
+      "socket4": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "Socket 4/4"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 0,
+            "usageOff": 0
+          }
+        }
+      },
+      "usb": {
+        "class": "socket",
+        "capabilities": [
+          "onoff"
+        ],
+        "name": {
+          "en": "USB Port"
+        },
+        "energy": {
+          "approximation": {
+            "usageOn": 5,
+            "usageOff": 0
+          }
+        }
+      }
+    },
+    "learnmode": {
+      "instruction": {
+        "en": "Press and hold on/off switch for 5 seconds until LED blinks."
+      }
+    }
+  },
+  "energy": {
+    "approximation": {
+      "usageOn": 1,
+      "usageOff": 0.5
+    }
+  }
+}
