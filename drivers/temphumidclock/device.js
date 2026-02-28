@@ -24,6 +24,26 @@
 require('../../lib/TuyaSpecificCluster');
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerCluster6 } = require('../../lib/AvailabilityManager');
+/**
+ * Parse a Tuya datapoint value into a JS type.
+ *
+ * @param {Object} dpValue
+ * @param {number} dpValue.datatype - Tuya datatype (0=raw,1=bool,2=value,3=string,4=enum,5=bitmap)
+ * @param {Buffer|Array<number>} dpValue.data
+ * @returns {boolean|number|string|Buffer}
+ */
+function getDataValue(dpValue) {
+  const data = dpValue.data;
+  switch (dpValue.datatype) {
+    case 0: return data;
+    case 1: return data[0] === 1;
+    case 2: return data.reduce((acc, b) => (acc << 8) | b, 0);
+    case 3: return String.fromCharCode(...data);
+    case 4: return data[0];
+    case 5: return data.reduce((acc, b) => (acc << 8) | b, 0);
+    default: throw new Error(`Unsupported datatype: ${dpValue.datatype}`);
+  }
+}
 
 const DRIVER_VERSION = '3.3.1';
 const DRIVER_NAME    = 'Tuya Temp/Humidity Clock';
@@ -41,31 +61,6 @@ const BATTERY_PCT = Object.freeze({ 0: 33, 1: 66, 2: 100 });
 
 const QUERY_THROTTLE     = 60  * 1000;       // 60s between dataQuery (battery saving)
 const TIME_SYNC_INTERVAL = 10 * 60 * 1000;  // 10 min proactive sync
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Inline getDataValue (no external dependency)
-// ─────────────────────────────────────────────────────────────────────────────
-
-/**
- * Parse a Tuya datapoint value object into a JS type.
- *
- * @param {Object} dpValue
- * @param {number} dpValue.datatype
- * @param {Buffer|Array<number>} dpValue.data
- * @returns {boolean|number|string|Buffer}
- */
-function getDataValue(dpValue) {
-  const data = dpValue.data;
-  switch (dpValue.datatype) {
-    case 0: return data;                                                   // raw
-    case 1: return data[0] === 1;                                          // bool
-    case 2: return data.reduce((acc, b) => (acc << 8) | b, 0);            // value
-    case 3: return String.fromCharCode(...data);                           // string
-    case 4: return data[0];                                                // enum
-    case 5: return data.reduce((acc, b) => (acc << 8) | b, 0);            // bitmap
-    default: throw new Error(`Unsupported datatype: ${dpValue.datatype}`);
-  }
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Device class

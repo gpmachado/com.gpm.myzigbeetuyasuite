@@ -4,31 +4,27 @@ const { Cluster } = require('zigbee-clusters');
 const TuyaSpecificCluster = require('../../lib/TuyaSpecificCluster');
 const TuyaSpecificClusterDevice = require('../../lib/TuyaSpecificClusterDevice');
 const { AvailabilityManagerCluster0 } = require('../../lib/AvailabilityManager');
-
 /**
- * Parse Tuya datapoint value to JS type.
- * @param {Object} dpValue - Raw datapoint from cluster
+ * Parse a Tuya datapoint value into a JS type.
+ *
+ * @param {Object} dpValue
+ * @param {number} dpValue.datatype - Tuya datatype (0=raw,1=bool,2=value,3=string,4=enum,5=bitmap)
+ * @param {Buffer|Array<number>} dpValue.data
  * @returns {boolean|number|string|Buffer}
  */
 function getDataValue(dpValue) {
+  const data = dpValue.data;
   switch (dpValue.datatype) {
-    case 0: return dpValue.data;
-    case 1: return dpValue.data[0] === 1;
-    case 2: {
-      let v = 0;
-      for (let i = 0; i < dpValue.data.length; i++) v = (v << 8) + dpValue.data[i];
-      return v;
-    }
-    case 3: return String.fromCharCode(...dpValue.data);
-    case 4: return dpValue.data[0];
-    case 5: {
-      let v = 0;
-      for (let i = 0; i < dpValue.data.length; i++) v = (v << 8) + dpValue.data[i];
-      return v;
-    }
+    case 0: return data;
+    case 1: return data[0] === 1;
+    case 2: return data.reduce((acc, b) => (acc << 8) | b, 0);
+    case 3: return String.fromCharCode(...data);
+    case 4: return data[0];
+    case 5: return data.reduce((acc, b) => (acc << 8) | b, 0);
     default: throw new Error(`Unsupported datatype: ${dpValue.datatype}`);
   }
 }
+
 
 Cluster.addCluster(TuyaSpecificCluster);
 

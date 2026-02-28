@@ -73,16 +73,15 @@ class NovaDigitalSwitch2Gang extends ZigBeeDevice {
       this.log(`[${this._gangType}] Syncing settings from device...`);
     }
 
-    // Install on every instance so each endpoint feeds its own watchdog.
-    // _getSiblings() in AvailabilityManager cascades unavailable/available
-    // across all gangs when any timeout fires or any frame recovers.
-    this._availability = new AvailabilityManagerCluster6(this, {
-      timeout: 10 * 60 * 1000,
-    });
-    await this._availability.install();
-
-    // Mark alive on boot
-    this._markAliveFromAvailability?.('boot');
+    // Single watchdog on main device — _getSiblings() in AvailabilityManager
+    // cascades unavailable/available across all gangs automatically.
+    if (this._isMainDevice) {
+      this._availability = new AvailabilityManagerCluster6(this, {
+        timeout: 10 * 60 * 1000,
+      });
+      await this._availability.install();
+      this._markAliveFromAvailability?.('boot');
+    }
 
     await this._syncFromConfig();
     await this.ready();

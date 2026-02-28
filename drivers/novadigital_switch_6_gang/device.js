@@ -206,7 +206,12 @@ class ZemismartSwitch6Gang extends TuyaSpecificClusterDevice {
   }
 
   /**
-   * Parse Tuya datapoint value
+   * Parse a Tuya datapoint value into a JS type.
+   *
+   * @param {Object} dpValue
+   * @param {number} dpValue.datatype - Tuya datatype (0=raw,1=bool,2=value,3=string,4=enum,5=bitmap)
+   * @param {Buffer|Array<number>} dpValue.data
+   * @returns {boolean|number|string|Buffer}
    */
   _parseDataValue(dpValue) {
     switch (dpValue.datatype) {
@@ -221,7 +226,10 @@ class ZemismartSwitch6Gang extends TuyaSpecificClusterDevice {
   }
 
   /**
-   * Convert buffer to uint32
+   * Convert a big-endian byte array to an unsigned 32-bit integer.
+   *
+   * @param {Buffer|Array<number>} buf
+   * @returns {number}
    */
   _bufToUint32(buf) {
     let value = 0;

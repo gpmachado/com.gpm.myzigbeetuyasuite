@@ -1,0 +1,58 @@
+{
+  "id": "com.gpm.myzigbeetuyasuite",
+  "version": "1.1.2",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "My Zigbee Suite"
+  },
+  "description": {
+    "en": "Personal suite for Tuya Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more"
+  },
+  "category": [
+    "appliances"
+  ],
+  "tags": {
+    "en": [
+      "tuya",
+      "zigbee",
+      "zemismart",
+      "novadigital",
+      "moes",
+      "switch",
+      "sensor",
+      "dimmer",
+      "smart plug",
+      "power strip",
+      "power metering",
+      "dimmer /fan controller",
+      "temperature",
+      "humidity",
+      "gas detector",
+      "siren"
+    ]
+  },
+  "brandColor": "#2B5F9E",
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Gabriel Pedrosa Machado",
+    "email": "g.machado@me.com"
+  },
+  "brands": [
+    "zemismart",
+    "novadigital",
+    "tuya",
+    "moes"
+  ],
+  "dependencies": {
+    "homey-zigbeedriver": "^2.2.15",
+    "zigbee-clusters": "^2.6.0"
+  }
+}

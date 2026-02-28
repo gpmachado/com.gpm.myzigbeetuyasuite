@@ -1,14 +1,14 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gpm.myzigbeetuyasuite",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
     "local"
   ],
   "name": {
-    "en": "My Tuya Zigbee Suite"
+    "en": "My Zigbee Suite"
   },
   "description": {
     "en": "Personal suite for Tuya Zigbee devices like Zemismart & NovaDigital switches, sirens, sensors and more"

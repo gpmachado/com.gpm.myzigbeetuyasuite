@@ -136,7 +136,16 @@ class LCDTempHumidSensor extends ZigBeeDevice {
    * @param {string[]} params.changedKeys
    */
   async onSettings({ oldSettings, newSettings, changedKeys }) {
-    this.log('[Settings] Changed:', changedKeys);  }
+    this.log('[Settings] Changed:', changedKeys);
+
+    if (changedKeys.includes('health_monitoring_enabled')) {
+      if (newSettings.health_monitoring_enabled) {
+        await this._availability.install();
+      } else {
+        await this._availability.uninstall();
+      }
+    }
+  }
 
   // ─────────────────────────────────────────────────────────────────────────
   // Lifecycle

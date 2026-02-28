@@ -325,6 +325,14 @@ class NovaDigitalSwitch4Gang extends TuyaSpecificClusterDevice {
     return dp === this._myDp;
   }
 
+  /**
+   * Parse a Tuya datapoint value into a JS type.
+   *
+   * @param {Object} dpValue
+   * @param {number} dpValue.datatype - Tuya datatype (0=raw,1=bool,2=value,3=string,4=enum,5=bitmap)
+   * @param {Buffer|Array<number>} dpValue.data
+   * @returns {boolean|number|string|Buffer}
+   */
   _parseDataValue(dpValue) {
     switch (dpValue.datatype) {
       case 0: return dpValue.data;
@@ -337,6 +345,12 @@ class NovaDigitalSwitch4Gang extends TuyaSpecificClusterDevice {
     }
   }
 
+  /**
+   * Convert a big-endian byte array to an unsigned 32-bit integer.
+   *
+   * @param {Buffer|Array<number>} buf
+   * @returns {number}
+   */
   _bufToUint32(buf) {
     let value = 0;
     for (let i = 0; i < buf.length; i++) {

@@ -1,0 +1,20 @@
+{
+  "1.0.0": {
+    "en": "First version!"
+  },
+  "1.0.1": {
+    "en": "Add SmartPlug"
+  },
+  "1.0.2": {
+    "en": "Add Moes Dimmer 3gang, Gas Detector, Temperature Sensor, Siren."
+  },
+  "1.1.0": {
+    "en": "Added robust availability monitoring for Zigbee devices (heartbeat-based and event-based recovery)."
+  },
+  "1.1.1": {
+    "en": "icon"
+  },
+  "1.1.2": {
+    "en": "Reworked sibling device architecture to ensure proper instance isolation, roved availability handling with controlled propagation from primary device"
+  }
+}
